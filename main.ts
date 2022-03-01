@@ -37,18 +37,21 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, ot
         `, SpriteKind.level_2_player)
     scaling.scaleByPixels(mySprite2, 3, ScaleDirection.Uniformly, ScaleAnchor.Middle)
     tiles.placeOnTile(mySprite2, tiles.getTileLocation(250, 8))
-    tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 10))
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 6))
     scene.cameraFollowSprite(mySprite)
     mySprite.setVelocity(40, 0)
     music.playMelody("F C A D F E - D ", 120)
 })
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleBlueCrystal, function (sprite, location) {
-    if (controller.A.isPressed()) {
-        tiles.placeOnTile(mySprite, tiles.getTileLocation(225, 3))
-    }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
+    tiles.loadMap(tiles.createMap(tilemap`level14`))
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
     game.over(false)
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, function (sprite, location) {
+    if (controller.A.isPressed()) {
+        tiles.placeOnTile(mySprite, tiles.getTileLocation(225, 3))
+    }
 })
 let mySprite2: Sprite = null
 let mySprite3: Sprite = null
