@@ -1,9 +1,6 @@
 namespace SpriteKind {
     export const level_2_player = SpriteKind.create()
 }
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
-	
-})
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, otherSprite) {
     mySprite3.destroy(effects.disintegrate, 50)
     music.bigCrash.playUntilDone()
@@ -37,13 +34,18 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, ot
         `, SpriteKind.level_2_player)
     scaling.scaleByPixels(mySprite2, 3, ScaleDirection.Uniformly, ScaleAnchor.Middle)
     tiles.placeOnTile(mySprite2, tiles.getTileLocation(250, 8))
-    tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 6))
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(12, 3))
     scene.cameraFollowSprite(mySprite)
     mySprite.setVelocity(40, 0)
     music.playMelody("F C A D F E - D ", 120)
 })
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.level_2_player, function (sprite, otherSprite) {
+    game.over(true)
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
-    tiles.loadMap(tiles.createMap(tilemap`level14`))
+    tiles.loadMap(tiles.createMap(tilemap`level15`))
+    game.showLongText("3 2 1 ADJUSTING YOUR POSITION ........ GO!!", DialogLayout.Bottom)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(209, 4))
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
     game.over(false)
@@ -109,5 +111,5 @@ forever(function () {
 })
 game.onUpdateInterval(10000, function () {
     mySprite.vx += 10
-    controller.moveSprite(mySprite, 0, 200)
+    controller.moveSprite(mySprite, 0, 180)
 })
